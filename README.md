@@ -240,7 +240,7 @@ CREATE TABLE reviews (
     INDEX idx_created_at (created_at)
 );
 
--- REVIEW_VOTES
+-- REVIEW_VOTES (N-N relationship)
 CREATE TABLE review_votes (
     review_id BIGINT UNSIGNED,
     user_id BIGINT UNSIGNED,
@@ -307,10 +307,12 @@ _Planned: Swagger UI at `/swagger-ui.html`_
 | 9   | View others' reviews                  |
 | 11  | Search books by name                  |
 
-## 🧩 Future Improvements
-- Email confirmation when registering
-- Full-text search for books and authors
-- Report abusive reviews
+## 🧩 Future Improvements (unevaluated features)
+- Email confirmation when registering.
+- Full-text search for books and authors.
+- Report abusive reviews.
+- Promoted/Relegated accounts.
+- Insert pictures in your review(s).
 - ...
 
 ## 📄 License
