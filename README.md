@@ -96,8 +96,11 @@ bookreviewhub-backend/
     │   │                   └── CustomUserDetailsService.java
     │   └── resources/
     │       ├── application.properties
-    │       └── db/migration/
-    │           └── V1__init.sql
+    │       ├── static
+    │       ├── templates
+    │       └── db/
+    │           └── migration/
+    │               └── V1__init.sql
     └── test/
         └── com/
             └── bookreviewhub/
