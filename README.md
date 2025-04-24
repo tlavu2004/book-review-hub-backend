@@ -7,7 +7,7 @@ This is the backend service for **BookReviewHub**, a web application that allows
 ## 🚀 Features
 
 - ✅ User registration & login
-- ✅ Role-based access control (user, manager, admin)
+- ✅ Role-based access control (user, moderator, admin)
 - ✅ Book management with genres
 - ✅ Book reviews and rating system
 - ✅ Review voting (upvote/downvote)
@@ -95,7 +95,7 @@ bookreviewhub-backend/
     │   │                   ├── JwtUtil.java
     │   │                   └── CustomUserDetailsService.java
     │   └── resources/
-    │       ├── application.yml
+    │       ├── application.properties
     │       └── db/migration/
     │           └── V1__init.sql
     └── test/
@@ -146,7 +146,7 @@ cd bookreviewhub-backend
 
 _**Proposed SQL Schema:**_
 ```sql
--- USERS
+/* USERS */
 CREATE TABLE users (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -158,10 +158,10 @@ CREATE TABLE users (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     status ENUM('ACTIVE', 'INACTIVE', 'BANNED') DEFAULT 'ACTIVE',
 
-    INDEX idx_created_at (created_at) -- Filtering users by created date.
+    INDEX idx_created_at (created_at) /* Filtering users by created date */
 );
 
--- BOOKS
+/* BOOKS */
 CREATE TABLE books (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -179,7 +179,7 @@ CREATE TABLE books (
     INDEX idx_created_at (created_at)
 );
 
--- BOOK_IMAGES stores multiple images for each book (1:N with books)
+/* BOOK_IMAGES stores multiple images for each book (1:N with books) */
 CREATE TABLE book_images (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     book_id BIGINT UNSIGNED NOT NULL,
@@ -196,7 +196,7 @@ CREATE TABLE book_images (
     INDEX idx_uploaded_by_user (uploaded_by_user_id)
 );
 
--- GENRES
+/* GENRES */
 CREATE TABLE genres (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) UNIQUE NOT NULL,
@@ -210,7 +210,7 @@ CREATE TABLE genres (
     INDEX idx_added_by_user (added_by_user_id)
 );
 
--- BOOK_GENRES (N-N relationship)
+/* BOOK_GENRES (N-N relationship)*/
 CREATE TABLE book_genres (
     book_id BIGINT UNSIGNED,
     genre_id BIGINT UNSIGNED,
@@ -219,10 +219,10 @@ CREATE TABLE book_genres (
     FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
     FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE,
 
-    INDEX idx_genre_id (genre_id) -- For filtering all books in the same genre.
+    INDEX idx_genre_id (genre_id) /* For filtering all books in the same genre */
 );
 
--- REVIEWS
+/* REVIEWS */
 CREATE TABLE reviews (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     content TEXT,
@@ -240,7 +240,7 @@ CREATE TABLE reviews (
     INDEX idx_created_at (created_at)
 );
 
--- REVIEW_VOTES (N-N relationship)
+/* REVIEW_VOTES (N-N relationship) */
 CREATE TABLE review_votes (
     review_id BIGINT UNSIGNED,
     user_id BIGINT UNSIGNED,
@@ -257,7 +257,16 @@ CREATE TABLE review_votes (
 );
 ```
 
-### 3. Run the application
+### 3. Build the application
+```bash
+./mvnw clean install
+```
+_or_
+```bash
+mvn clean package
+```
+
+### 4. Run the application
 
 Using Maven:
 ```bash
