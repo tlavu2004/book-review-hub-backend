@@ -151,13 +151,14 @@ CREATE TABLE users (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     hashed_password VARCHAR(255) NOT NULL,
-    role ENUM('user', 'manager', 'admin') DEFAULT 'user',
+    role ENUM('USER', 'MODERATOR', 'ADMIN') DEFAULT 'USER',
     first_name VARCHAR(50) NOT NULL,
     middle_name VARCHAR(50) DEFAULT NULL,
     last_name VARCHAR(50) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('ACTIVE', 'INACTIVE', 'BANNED') DEFAULT 'ACTIVE',
 
-    INDEX idx_created_at (created_at) -- dùng cho sắp xếp, lọc user theo thời gian
+    INDEX idx_created_at (created_at) -- Filtering users by created date.
 );
 
 -- BOOKS
@@ -165,9 +166,11 @@ CREATE TABLE books (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL,
+    cover_image_url VARCHAR(511) DEFAULT NULL,
     description TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     added_by_user_id BIGINT UNSIGNED,
+    is_removed BOOLEAN DEFAULT FALSE,
 
     CONSTRAINT uq_title_author UNIQUE (title, author),
     FOREIGN KEY (added_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
@@ -176,12 +179,30 @@ CREATE TABLE books (
     INDEX idx_created_at (created_at)
 );
 
+-- BOOK_IMAGES stores multiple images for each book (1:N with books)
+CREATE TABLE book_images (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    book_id BIGINT UNSIGNED NOT NULL,
+    image_url VARCHAR(1024) NOT NULL,
+    type ENUM('COVER', 'ILLUSTRATION', 'AUTHOR', 'OTHER') DEFAULT 'OTHER',
+    uploaded_by_user_id BIGINT UNSIGNED,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
+    FOREIGN KEY (uploaded_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
+
+    INDEX idx_book_id (book_id),
+    INDEX idx_type (type),
+    INDEX idx_uploaded_by_user (uploaded_by_user_id)
+);
+
 -- GENRES
 CREATE TABLE genres (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) UNIQUE NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     added_by_user_id BIGINT UNSIGNED,
+    is_removed BOOLEAN DEFAULT FALSE,
 
     FOREIGN KEY (added_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
 
@@ -209,6 +230,7 @@ CREATE TABLE reviews (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     reviewer_id BIGINT UNSIGNED,
     book_id BIGINT UNSIGNED,
+    is_removed BOOLEAN DEFAULT FALSE,
 
     FOREIGN KEY (reviewer_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
@@ -218,7 +240,7 @@ CREATE TABLE reviews (
     INDEX idx_created_at (created_at)
 );
 
--- REVIEW_VOTES (N-N relationship)
+-- REVIEW_VOTES
 CREATE TABLE review_votes (
     review_id BIGINT UNSIGNED,
     user_id BIGINT UNSIGNED,
