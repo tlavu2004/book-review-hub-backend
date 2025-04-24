@@ -258,6 +258,7 @@ CREATE TABLE review_votes (
 ```
 
 ### 3. Build the application
+
 ```bash
 ./mvnw clean install
 ```
