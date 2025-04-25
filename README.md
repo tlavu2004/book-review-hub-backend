@@ -115,15 +115,23 @@ bookreviewhub-backend/
 Configure database connection and other environment-specific variables in `src/main/resources/application.properties`:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/bookreviewhub_db
-spring.datasource.username=root
-spring.datasource.password=yourpassword
+spring.application.name=bookreviewhub-backend
 
-spring.jpa.hibernate.ddl-auto=validate
+spring.datasource.url=jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Hibernate
+spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 
-spring.flyway.enabled=true
-spring.flyway.locations=classpath:db/migration
+# Flyway (if using)
+spring.flyway.enabled=false
+
+# --- Proposed Zone ---
+spring.flyway.locations=classpath:db/migration 
 
 # JWT config
 app.jwt.secret=YourJWTSecretKey
