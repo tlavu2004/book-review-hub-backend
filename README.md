@@ -1,6 +1,6 @@
-# 📚 BookReviewHub - Backend
+# 📚 Book Review Hub - Backend
 
-This is the backend service for **BookReviewHub**, a web application that allows users to review, rate, and discover books. It provides a RESTful API for managing users, books, genres, and reviews, including authentication and authorization features using Spring Security.
+This is the backend service for **Book Review Hub**, a web application that allows users to review, rate, and discover books. It provides a RESTful API for managing users, books, genres, and reviews, including authentication and authorization features using Spring Security.
 
 ---
 
