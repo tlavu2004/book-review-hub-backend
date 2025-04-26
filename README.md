@@ -229,7 +229,7 @@ Or use IntelliJ / VSCode Spring Boot run configuration.
 ./mvnw flyway:migrate "-Dspring-boot.run.profiles=dev"
 ```
 
-> [!⚠️Warning]
+> [!Warning]
 > - This will drop all tables and reapply migrations.
 > - Never run this in production!
 
