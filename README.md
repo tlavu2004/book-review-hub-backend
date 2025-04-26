@@ -1,21 +1,43 @@
 # 📚 Book Review Hub - Backend
 
-This is the backend service for **Book Review Hub**, a web application that allows users to review, rate, and discover books. It provides a RESTful API for managing users, books, genres, and reviews, including authentication and authorization features using Spring Security.
+![Java](https://img.shields.io/badge/Java-21-blue)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.4-success)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Build](https://img.shields.io/badge/Build-passing-brightgreen)
+
+This is the backend service for **Book Review Hub**, a web application that allows users to review, rate, and discover books.
+
+It provides a RESTful API for managing users, books, genres, and reviews, with authentication and authorization features.
 
 ---
 
-## 🚀 Features
+## 🗂️ Table of Contents
+
+- [🚀 Basic Features](#-basic-features)
+- [🧱 Tech Stack](#-tech-stack)
+- [📂 Project Structure](#-project-structure)
+- [⚙️ Configuration](#-configuration)
+- [🛠️ Set Up Database](#-set-up-database)
+- [▶️ Run the Application](#-run-the-application)
+- [📬 API Documentation](#-api-documentation)
+- [📋 Planned Features (under evaluation)](#-planned-features-under-evaluation)
+- [🛠️ Features Implemented at MVP Stage](#-features-implemented-at-mvp-stage)
+- [🧩 Future Improvements (unevaluated features)](#-future-improvements-unevaluated-features)
+- [📄 License](#-license)
+
+---
+
+## 🚀 Basic Features
 
 - ✅ User registration & login
 - ✅ Role-based access control (user, moderator, admin)
 - ✅ Book management with genres
 - ✅ Book reviews and rating system
 - ✅ Review voting (upvote/downvote)
-- ✅ Database migration with Flyway
 - ✅ Validation and error handling
-- ✅ Secure password hashing & authentication
+- ✅ Secure password hashing and authentication
 - ✅ RESTful API design
-
+- ✅ Database versioning with Flyway (development only)
 ---
 
 ## 🧱 Tech Stack
@@ -35,9 +57,9 @@ This is the backend service for **Book Review Hub**, a web application that allo
 
 ---
 
-## 📂 Project Structure 
+## 📂 Project Structure
 
-_**This is just a proposed directory structure - Stage: MVP**_
+_**(MVP Stage)**_
 
 ```
 bookreviewhub-backend/
@@ -83,6 +105,7 @@ bookreviewhub-backend/
     │   │               ├── repository/
     │   │               │   ├── UserRepository.java
     │   │               │   ├── BookRepository.java
+    │   │               │   ├── GenreRepository.java
     │   │               │   └── ReviewRepository.java
     │   │               ├── service/
     │   │               │   ├── AuthService.java
@@ -96,11 +119,14 @@ bookreviewhub-backend/
     │   │                   └── CustomUserDetailsService.java
     │   └── resources/
     │       ├── application.properties
-    │       ├── static
-    │       ├── templates
+    │       ├── application-dev.properties
+    │       ├── application-prod.properties
+    │       ├── static                          # (currently empty)
+    │       ├── templates                       # (currently empty)
     │       └── db/
     │           └── migration/
-    │               └── V1__init.sql
+    │               ├── R__mvp_seed_data.sql
+    │               └── V1__init_schema.sql
     └── test/
         └── com/
             └── bookreviewhub/
@@ -112,218 +138,64 @@ bookreviewhub-backend/
 
 ## ⚙️ Configuration
 
-Configure database connection and other environment-specific variables in `src/main/resources/application.properties`:
+Environment-specific configurations are defined in:
 
-```properties
-spring.application.name=bookreviewhub-backend
+- `src/main/resources/application.properties`
+- `src/main/resources/application-dev.properties`
+- `src/main/resources/application-prod.properties`
 
-spring.datasource.url=jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
-spring.datasource.username=${DB_USERNAME}
-spring.datasource.password=${DB_PASSWORD}
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+Profiles:
 
-# Hibernate
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+| Profile | File                        | Used for           | Flyway         | Hibernate           |
+|---------|-----------------------------|--------------------|----------------|---------------------|
+| dev     | application-dev.properties  | Local development  | Auto-migrate   | validate            |
+| prod    | application-prod.properties | Production         | No migration   | validate            |
+| test    | application-test.properties | Testing (Optional) | Manual or none | create-drop or none |
 
-# Flyway (if using)
-spring.flyway.enabled=false
-
-# --- Proposed Zone ---
-spring.flyway.locations=classpath:db/migration 
-
-# JWT config
-app.jwt.secret=YourJWTSecretKey
-app.jwt.expiration=86400000
-```
+> [!Note]
+> In production, Flyway migrations are not applied automatically.
+> Always `set spring.jpa.hibernate.ddl-auto=validate` to ensure schema integrity.
 
 ---
 
-## 🧪 Run Locally
+## 🛠️ Prerequisites
+
+- Java 21
+- Maven 3.8+
+- MySQL 8.0+ database (locally or via a cloud provider like Railway)
+- (Optional) Docker (for containerization, future support planned)
+
+---
+
+## 🛠️ Set Up Database
+
+### 1. Create Database
+
+- Create a MySQL database, e.g., bookreviewhub_db.
+- (Optional) Host on Railway or any MySQL provider.
+
+### 2. (Development only) Apply Schema
+   
+- The initial schema is available at src/main/resources/db/migration/V1__init_schema.sql (any other schema will be placed here).
+- Flyway will automatically apply migrations in dev profile when the app starts.
+
+Or you can manually import the SQL file if needed.
+
+### 3. Entity Relationship Diagram for this project
+_Coming soon (under preparation)_
+
+---
+
+## ▶️ Run the Application
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/bookreviewhub-backend.git
+git clone https://github.com/tlavu2004/bookreviewhub-backend.git
 cd bookreviewhub-backend
 ```
 
-### 2. Set up MySQL
-- Create a database named `bookreviewhub_db` in [Railway](https://railway.com)
-- Import schema from `src/main/resources/db/migration/V1__init.sql`
-- Let Flyway auto migrate if configured properly
-=> Will be available soon.
-
-_**Proposed SQL Schema:**_
-```sql
-/* USERS */
-CREATE TABLE users (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    hashed_password VARCHAR(255) NOT NULL,
-    role ENUM('USER', 'MODERATOR', 'ADMIN') DEFAULT 'USER',
-    first_name VARCHAR(50) NOT NULL,
-    middle_name VARCHAR(50) DEFAULT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    last_login_at DATETIME DEFAULT NULL,
-    updated_at DATETIME DEFAULT NULL,
-    status ENUM('ACTIVE', 'INACTIVE', 'BANNED') DEFAULT 'ACTIVE',
-
-    INDEX idx_created_at (created_at) /* Filtering users by created date */
-);
-
-/* Trigger for `users` table */
-DELIMITER //
-CREATE TRIGGER trg_users_before_update
-BEFORE UPDATE ON users
-FOR EACH ROW
-BEGIN
-    SET NEW.updated_at = NOW();
-END;
-//
-DELIMITER ;
-
-/* BOOKS */
-CREATE TABLE books (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    author VARCHAR(255) NOT NULL,
-    published_year YEAR,
-    publisher VARCHAR(255),
-    cover_image_url VARCHAR(511) DEFAULT NULL,
-    description TEXT,
-    added_by_user_id BIGINT UNSIGNED,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT NULL,
-    is_removed BOOLEAN DEFAULT FALSE,
-
-    CONSTRAINT uq_title_author UNIQUE (title, author),
-    FOREIGN KEY (added_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
-
-    INDEX idx_added_by_user (added_by_user_id),
-    INDEX idx_created_at (created_at)
-);
-
-/* Trigger for `books` table */
-DELIMITER //
-CREATE TRIGGER trg_books_before_update
-BEFORE UPDATE ON books
-FOR EACH ROW
-BEGIN
-    SET NEW.updated_at = NOW();
-END;
-//
-DELIMITER ;
-
-/* BOOK_IMAGES stores multiple images for each book (1-N with books) */
-CREATE TABLE book_images (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    book_id BIGINT UNSIGNED NOT NULL,
-    image_url VARCHAR(1024) NOT NULL,
-    type ENUM('COVER', 'ILLUSTRATION', 'AUTHOR', 'OTHER') DEFAULT 'OTHER',
-    uploaded_by_user_id BIGINT UNSIGNED,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT NULL,
-    is_removed BOOLEAN DEFAULT FALSE,
-
-    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
-    FOREIGN KEY (uploaded_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
-
-    INDEX idx_book_id (book_id),
-    INDEX idx_type (type),
-    INDEX idx_uploaded_by_user (uploaded_by_user_id)
-);
-
-/* Trigger for `book_images` table */
-DELIMITER //
-CREATE TRIGGER trg_book_images_before_update
-BEFORE UPDATE ON book_images
-FOR EACH ROW
-BEGIN
-    SET NEW.updated_at = NOW();
-END;
-//
-DELIMITER ;
-
-/* GENRES */
-CREATE TABLE genres (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) UNIQUE NOT NULL,
-    added_by_user_id BIGINT UNSIGNED,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT NULL,
-    is_removed BOOLEAN DEFAULT FALSE,
-
-    FOREIGN KEY (added_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
-
-    INDEX idx_created_at (created_at),
-    INDEX idx_added_by_user (added_by_user_id)
-);
-
-/* Trigger for `genres` table */
-DELIMITER //
-CREATE TRIGGER trg_genres_before_update
-BEFORE UPDATE ON genres
-FOR EACH ROW
-BEGIN
-    SET NEW.updated_at = NOW();
-END;
-//
-DELIMITER ;
-
-/* BOOK_GENRES (N-N relationship)*/
-CREATE TABLE book_genres (
-    book_id BIGINT UNSIGNED,
-    genre_id BIGINT UNSIGNED,
-    is_removed BOOLEAN DEFAULT FALSE,
-    PRIMARY KEY (book_id, genre_id),
-
-    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
-    FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE,
-
-    INDEX idx_genre_id (genre_id) /* For filtering all books in the same genre */
-);
-
-/* REVIEWS */
-CREATE TABLE reviews (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    content TEXT,
-    rating TINYINT UNSIGNED CHECK (rating BETWEEN 1 AND 5),
-    reviewer_id BIGINT UNSIGNED NOT NULL,
-    book_id BIGINT UNSIGNED NOT NULL,
-    previous_review_id BIGINT UNSIGNED DEFAULT NULL,
-    is_removed BOOLEAN DEFAULT FALSE,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-
-    FOREIGN KEY (reviewer_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
-    FOREIGN KEY (previous_review_id) REFERENCES reviews(id) ON DELETE SET NULL,
-
-    INDEX idx_user_book_time (reviewer_id, book_id, created_at DESC),
-    INDEX idx_book_id (book_id),
-    INDEX idx_reviewer_id (reviewer_id)
-);
-
-/* REVIEW_VOTES (N-N relationship) */
-CREATE TABLE review_votes (
-    review_id BIGINT UNSIGNED,
-    user_id BIGINT UNSIGNED,
-    vote_type ENUM('UPVOTE', 'DOWNVOTE'),
-    is_removed BOOLEAN DEFAULT FALSE,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (review_id, user_id),
-
-    FOREIGN KEY (review_id) REFERENCES reviews(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-
-    INDEX idx_user_id (user_id),
-    INDEX idx_created_at (created_at)
-);
-```
-
-### 3. Build the application
+### 2. Build the application
 
 ```bash
 ./mvnw clean install
@@ -333,19 +205,63 @@ _or_
 mvn clean package
 ```
 
-### 4. Run the application
+### 3. Run the application
 
 Using Maven:
+
 ```bash
-./mvnw spring-boot:run
+./mvnw spring-boot:run "-Dspring-boot.run.profiles=dev" 
 ```
-Or using IntelliJ / VSCode Spring Boot run.
+Or use IntelliJ / VSCode Spring Boot run configuration.
 
-## 📬 API Documentation 
-Will be available soon.
-_Planned: Swagger UI at `/swagger-ui.html`_
+> [!Note]
+> - Replace dev with prod or any another profile name as needed.
+> - When using Flyway, new migration scripts (if any) will be automatically applied to your database, tracked by the flyway_schema_history table.
 
-## 📚 List of features implemented in this project ✅
+### 4. Optional Commands:
+
+- Reset database (development only):
+
+```bash
+./mvnw flyway:clean
+
+# Apply migrations manually (in development)
+./mvnw flyway:migrate "-Dspring-boot.run.profiles=dev"
+```
+
+> [!⚠️Warning]
+> - This will drop all tables and reapply migrations.
+> - Never run this in production!
+
+---
+
+## 📬 API Documentation
+
+Swagger UI is **configured** but **not yet deployed**.  
+It will be available soon at:
+
+```http
+http://localhost:8080/swagger-ui/index.html
+```
+_(Coming soon)_
+
+### 🔐 Authentication
+
+- This project uses JWT (JSON Web Tokens) for authentication.
+- After registering or logging in via `/api/auth/login`, you will receive a JWT token.
+- Use this token in the `Authorization` header for all protected endpoints:
+
+```bash
+Authorization: Bearer <your-token-here>
+```
+
+_(Authentication endpoints are fully functional for MVP stage.)_
+
+---
+
+## 📋 Planned Features (under evaluation)
+
+✅
 
 | No. | Feature Description                               | Importance | Complexity | Roles                                            | Done |
 |-----|---------------------------------------------------|------------|------------|--------------------------------------------------|------|
@@ -372,7 +288,10 @@ _Planned: Swagger UI at `/swagger-ui.html`_
 | 21  | Manage reviews (edit/delete any reviews)          | 5/5        | Medium     | Moderators, Admins                               |      |
 | 22  | Ban/Unban Users                                   | 4/5        | Hard       | Admins                                           |      |
 
-## 🛠️ Feature implemented at MVP Stage
+---
+
+## 🛠️ Features implemented at MVP Stage
+
 | No. | Feature Description                   |
 |-----|---------------------------------------|
 | 1   | Login                                 |
@@ -383,13 +302,18 @@ _Planned: Swagger UI at `/swagger-ui.html`_
 | 9   | View others' reviews                  |
 | 11  | Search books by name                  |
 
+---
+
 ## 🧩 Future Improvements (unevaluated features)
 - Email confirmation when registering.
 - Full-text search for books and authors.
 - Report abusive reviews.
-- Promoted/Relegated accounts.
-- Insert pictures in your review(s).
+- Insert images into reviews.
+- User promotion/demotion features.
+- Statistics dashboard for admins.
 - ...
+
+---
 
 ## 📄 License
 This project is under the MIT License.
