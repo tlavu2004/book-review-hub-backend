@@ -198,7 +198,7 @@ cd bookreviewhub-backend
 ### 2. Build the application
 
 ```bash
-./mvnw clean install
+./mvnw clean install -DskipTests
 ```
 _or_
 ```bash
