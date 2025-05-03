@@ -1,9 +1,9 @@
 -- USERS
-INSERT INTO users (email, hashed_password, role, first_name, last_name)
+INSERT INTO users (username, hashed_password, email, role, first_name, middle_name, last_name, status)
 VALUES
-('user@example.com', '$2a$12$z0xmm/0lJH4MGGmaCjWobOoaOnQe/2H2GJMtjGCz9ctJa77UEE19W', 'USER', 'Alice', 'User'), -- Password: User@123
-('moderator@example.com', '$2a$12$bmO1W0KqlW6Dujdhi3Xe1eNjwL/8TvgDV4Cg4XhF7v62wGiucxqLC', 'MODERATOR', 'Bob', 'Mod'), -- Password: Moderator@123
-('admin@example.com', '$2a$12$mic4.JVbhElG4/7dO7bzSuYNePadzv4M8US3Y.6NFuF4nTzgMBEL2', 'ADMIN', 'Carol', 'Admin'); -- Password: Admin@123
+('user01', '$2a$12$z0xmm/0lJH4MGGmaCjWobOoaOnQe/2H2GJMtjGCz9ctJa77UEE19W', 'user01@example.com', 'USER', 'Alice', NULL, 'User', 'ACTIVE'), -- Password: User@123
+('moderator01', '$2a$12$bmO1W0KqlW6Dujdhi3Xe1eNjwL/8TvgDV4Cg4XhF7v62wGiucxqLC', 'moderator01@example.com', 'MODERATOR', 'Bob', NULL, 'Mod', 'ACTIVE'), -- Password: Moderator@123
+('admin01', '$2a$12$mic4.JVbhElG4/7dO7bzSuYNePadzv4M8US3Y.6NFuF4nTzgMBEL2', 'admin01@example.com', 'ADMIN', 'Carol', NULL, 'Admin', 'ACTIVE'); -- Password: Admin@123
 
 -- GENRES
 INSERT INTO genres (name, added_by_user_id)
