@@ -1,4 +1,4 @@
-package com.bookreviewhub.backend.dto;
+package com.bookreviewhub.backend.dto.request;
 
 import lombok.Data;
 
