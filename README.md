@@ -76,53 +76,50 @@ bookreviewhub-backend/
     │   │       └── bookreviewhub/
     │   │           └── backend/
     │   │               ├── BookReviewHubApplication.java
-    │   │               ├── controller/
-    │   │               │   ├── AuthController.java
-    │   │               │   ├── BookController.java
-    │   │               │   ├── GenreController.java
-    │   │               │   ├── UserController.java        
-    │   │               │   └── ReviewController.java
-    │   │               ├── dto/
-    │   │               │   ├── AuthRequest.java
-    │   │               │   ├── AuthResponse.java
-    │   │               │   ├── BookRequest.java
-    │   │               │   ├── BookResponse.java
-    │   │               │   ├── BookSummary.java
-    │   │               │   ├── GenreRequest.java
-    │   │               │   ├── GenreResponse.java
-    │   │               │   ├── GenreSummary.java
-    │   │               │   ├── UserRequest.java
-    │   │               │   ├── UserResponse.java
-    │   │               │   ├── UserSummary.java
-    │   │               │   ├── ReviewRequest.java
-    │   │               │   ├── ReviewResponse.java
-    │   │               │   └── ReviewSummary.java
-    │   │               ├── model/
-    │   │               │   ├── User.java
-    │   │               │   ├── Book.java
-    │   │               │   ├── Genre.java
-    │   │               │   └── Review.java
-    │   │               ├── repository/
-    │   │               │   ├── UserRepository.java
-    │   │               │   ├── BookRepository.java
-    │   │               │   ├── GenreRepository.java
-    │   │               │   └── ReviewRepository.java
-    │   │               ├── service/
-    │   │               │   ├── AuthService.java
-    │   │               │   ├── BookService.java
-    │   │               │   ├── GenreService.java
-    │   │               │   ├── UserService.java   
-    │   │               │   └── ReviewService.java
-    │   │               └── security/
-    │   │                   ├── JwtFilter.java
-    │   │                   ├── JwtUtil.java
-    │   │                   └── CustomUserDetailsService.java
+    │   │               ├── common/                                             # Share the whole application
+    │   │               │   ├── dto/
+    │   │               │   │   └── response/
+    │   │               │   │       ├── ErrorResponse.java
+    │   │               │   │       └── SuccessResponse.java
+    │   │               │   ├── exception/
+    │   │               │   │   └── GlobalExceptionHandler.java
+    │   │               │   └── security/
+    │   │               │       ├── jwt/
+    │   │               │       │	└── JwtService.java
+    │   │               │       ├── filter/
+    │   │               │       │	└── JwtAuthenticationFilter.java
+    │   │               │       └── handler/
+    │   │               │			├── CustomAccessDeniedHandler.java
+    │   │               │			└── CustomAuthenticationEntryPoint.java
+    │   │               ├── config/
+    │   │               │   ├── JwtConfig.java
+    │   │               │   └── SecurityConfig.java
+    │   │               ├── auth/
+    │   │               │   ├── controller/
+    │   │               │   │   └── AuthController.java
+    │   │               │   ├── dto/
+    │   │               │   │   ├── request/
+    │   │               │   │   │   ├── LoginRequest.java
+    │   │               │   │   │   └── RegisterRequest.java
+    │   │               │   │   └── response/
+    │   │               │   │       └── AuthResponse.java
+    │   │               │   ├── entity/
+    │   │               │   │   └── User.java
+    │   │               │   ├── repository/
+    │   │               │   │   └── UserRepository.java
+    │   │               │   └── service/
+    │   │               │       ├── AuthService.java
+    │   │               │       └── CustomUserDetailsService.java
+    │   │               └── testapi/
+    │   │                   └── controller/
+    │   │                       └── TestController.java
+    │   │
     │   └── resources/
     │       ├── application.properties
     │       ├── application-dev.properties
     │       ├── application-prod.properties
-    │       ├── static                          # (currently empty)
-    │       ├── templates                       # (currently empty)
+    │       ├── static                                                          # (currently empty)
+    │       ├── templates                                                       # (currently empty)
     │       └── db/
     │           └── migration/
     │               ├── R__mvp_seed_data.sql
@@ -198,7 +195,7 @@ cd bookreviewhub-backend
 ### 2. Build the application
 
 ```bash
-./mvnw clean install
+./mvnw clean install -DskipTests
 ```
 _or_
 ```bash

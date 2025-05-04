@@ -21,17 +21,13 @@ public class BookreviewhubBackendApplication {
 				.ignoreIfMissing()
 				.load();
 
-//		System.setProperty("DB_HOST", dotenv.get("DB_HOST"));
-//		System.setProperty("DB_PORT", dotenv.get("DB_PORT"));
-//		System.setProperty("DB_NAME", dotenv.get("DB_NAME"));
-//		System.setProperty("DB_USERNAME", dotenv.get("DB_USERNAME"));
-//		System.setProperty("DB_PASSWORD", dotenv.get("DB_PASSWORD"));
-
 		setIfPresent("DB_HOST", dotenv);
 		setIfPresent("DB_PORT", dotenv);
 		setIfPresent("DB_NAME", dotenv);
 		setIfPresent("DB_USERNAME", dotenv);
 		setIfPresent("DB_PASSWORD", dotenv);
+		setIfPresent("APP_JWT_SECRET", dotenv);
+		setIfPresent("APP_JWT_EXPIRATION", dotenv);
 
 		SpringApplication.run(BookreviewhubBackendApplication.class, args);
 	}

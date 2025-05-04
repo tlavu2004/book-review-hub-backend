@@ -1,8 +1,9 @@
 /* USERS */
 CREATE TABLE users (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) UNIQUE NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
     hashed_password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
     role ENUM('USER', 'MODERATOR', 'ADMIN') DEFAULT 'USER',
     first_name VARCHAR(50) NOT NULL,
     middle_name VARCHAR(50) DEFAULT NULL,
@@ -15,7 +16,7 @@ CREATE TABLE users (
     INDEX idx_created_at (created_at) /* Filtering users by created date */
 );
 
-/* Trigger for `users` table */
+/* Trigger for "users" table */
 DELIMITER //
 CREATE TRIGGER trg_users_before_update
 BEFORE UPDATE ON users
@@ -47,7 +48,7 @@ CREATE TABLE books (
     INDEX idx_created_at (created_at)
 );
 
-/* Trigger for `books` table */
+/* Trigger for "books" table */
 DELIMITER //
 CREATE TRIGGER trg_books_before_update
 BEFORE UPDATE ON books
@@ -77,7 +78,7 @@ CREATE TABLE book_images (
     INDEX idx_uploaded_by_user (uploaded_by_user_id)
 );
 
-/* Trigger for `book_images` table */
+/* Trigger for "book_images" table */
 DELIMITER //
 CREATE TRIGGER trg_book_images_before_update
 BEFORE UPDATE ON book_images
@@ -103,7 +104,7 @@ CREATE TABLE genres (
     INDEX idx_added_by_user (added_by_user_id)
 );
 
-/* Trigger for `genres` table */
+/* Trigger for "genres" table */
 DELIMITER //
 CREATE TRIGGER trg_genres_before_update
 BEFORE UPDATE ON genres
