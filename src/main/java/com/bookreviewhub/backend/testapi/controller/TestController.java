@@ -1,4 +1,4 @@
-package com.bookreviewhub.backend.controller;
+package com.bookreviewhub.backend.testapi.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

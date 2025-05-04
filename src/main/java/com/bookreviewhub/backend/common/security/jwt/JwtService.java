@@ -1,4 +1,4 @@
-package com.bookreviewhub.backend.service;
+package com.bookreviewhub.backend.common.security.jwt;
 
 import com.bookreviewhub.backend.config.JwtConfig;
 import io.jsonwebtoken.Jwts;

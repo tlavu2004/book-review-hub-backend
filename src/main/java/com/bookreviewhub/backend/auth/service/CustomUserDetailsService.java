@@ -1,7 +1,7 @@
-package com.bookreviewhub.backend.service;
+package com.bookreviewhub.backend.auth.service;
 
-import com.bookreviewhub.backend.entity.User;
-import com.bookreviewhub.backend.repository.UserRepository;
+import com.bookreviewhub.backend.auth.entity.User;
+import com.bookreviewhub.backend.auth.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

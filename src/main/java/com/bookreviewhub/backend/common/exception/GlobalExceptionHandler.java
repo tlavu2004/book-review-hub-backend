@@ -1,6 +1,6 @@
-package com.bookreviewhub.backend.exception;
+package com.bookreviewhub.backend.common.exception;
 
-import com.bookreviewhub.backend.dto.response.ErrorResponse;
+import com.bookreviewhub.backend.common.dto.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

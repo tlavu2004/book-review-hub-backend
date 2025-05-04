@@ -1,9 +1,9 @@
 package com.bookreviewhub.backend.config;
 
-import com.bookreviewhub.backend.security.CustomAccessDeniedHandler;
-import com.bookreviewhub.backend.security.CustomAuthenticationEntryPoint;
-import com.bookreviewhub.backend.security.JwtAuthenticationFilter;
-import com.bookreviewhub.backend.service.CustomUserDetailsService;
+import com.bookreviewhub.backend.common.security.handler.CustomAccessDeniedHandler;
+import com.bookreviewhub.backend.common.security.handler.CustomAuthenticationEntryPoint;
+import com.bookreviewhub.backend.common.security.filter.JwtAuthenticationFilter;
+import com.bookreviewhub.backend.auth.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

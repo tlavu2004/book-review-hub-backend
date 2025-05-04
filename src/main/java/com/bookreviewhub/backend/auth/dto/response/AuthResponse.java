@@ -1,4 +1,4 @@
-package com.bookreviewhub.backend.dto.response;
+package com.bookreviewhub.backend.auth.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

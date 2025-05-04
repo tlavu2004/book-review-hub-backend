@@ -1,4 +1,4 @@
-package com.bookreviewhub.backend.security;
+package com.bookreviewhub.backend.common.security.handler;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

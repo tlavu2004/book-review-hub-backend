@@ -1,9 +1,9 @@
-package com.bookreviewhub.backend.controller;
+package com.bookreviewhub.backend.auth.controller;
 
-import com.bookreviewhub.backend.dto.request.RegisterRequest;
-import com.bookreviewhub.backend.dto.request.LoginRequest;
-import com.bookreviewhub.backend.dto.response.SuccessResponse;
-import com.bookreviewhub.backend.service.AuthService;
+import com.bookreviewhub.backend.auth.dto.request.RegisterRequest;
+import com.bookreviewhub.backend.auth.dto.request.LoginRequest;
+import com.bookreviewhub.backend.common.dto.response.SuccessResponse;
+import com.bookreviewhub.backend.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

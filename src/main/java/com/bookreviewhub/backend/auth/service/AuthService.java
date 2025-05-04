@@ -1,13 +1,12 @@
-package com.bookreviewhub.backend.service;
+package com.bookreviewhub.backend.auth.service;
 
-import com.bookreviewhub.backend.dto.request.RegisterRequest;
-import com.bookreviewhub.backend.dto.request.LoginRequest;
-import com.bookreviewhub.backend.dto.response.SuccessResponse;
-import com.bookreviewhub.backend.entity.User;
-import com.bookreviewhub.backend.repository.UserRepository;
+import com.bookreviewhub.backend.common.security.jwt.JwtService;
+import com.bookreviewhub.backend.auth.dto.request.RegisterRequest;
+import com.bookreviewhub.backend.auth.dto.request.LoginRequest;
+import com.bookreviewhub.backend.common.dto.response.SuccessResponse;
+import com.bookreviewhub.backend.auth.entity.User;
+import com.bookreviewhub.backend.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

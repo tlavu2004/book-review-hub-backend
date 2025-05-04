@@ -1,4 +1,4 @@
-package com.bookreviewhub.backend.entity;
+package com.bookreviewhub.backend.auth.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

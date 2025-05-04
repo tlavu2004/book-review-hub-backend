@@ -1,6 +1,6 @@
-package com.bookreviewhub.backend.repository;
+package com.bookreviewhub.backend.auth.repository;
 
-import com.bookreviewhub.backend.entity.User;
+import com.bookreviewhub.backend.auth.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
