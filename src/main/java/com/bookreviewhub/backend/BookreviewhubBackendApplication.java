@@ -28,6 +28,7 @@ public class BookreviewhubBackendApplication {
 		setIfPresent("DB_PASSWORD", dotenv);
 		setIfPresent("APP_JWT_SECRET", dotenv);
 		setIfPresent("APP_JWT_EXPIRATION", dotenv);
+		setIfPresent("ALLOWED_ORIGIN", dotenv);
 
 		SpringApplication.run(BookreviewhubBackendApplication.class, args);
 	}
