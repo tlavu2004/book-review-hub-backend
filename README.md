@@ -252,7 +252,7 @@ _(Coming soon)_
 Authorization: Bearer <your-token-here>
 ```
 
-_(Authentication endpoints are fully functional for MVP stage.)_
+_(Authentication endpoints are fully functional for MVP stage)_
 
 ---
 
