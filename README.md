@@ -29,15 +29,15 @@ It provides a RESTful API for managing users, books, genres, and reviews, with a
 
 ## 🚀 Basic Features
 
-- ✅ User registration & login
-- ✅ Role-based access control (user, moderator, admin)
-- ✅ Book management with genres
-- ✅ Book reviews and rating system
-- ✅ Review voting (upvote/downvote)
-- ✅ Validation and error handling
-- ✅ Secure password hashing and authentication
-- ✅ RESTful API design
-- ✅ Database versioning with Flyway (development only)
+- ✅ User registration & login.
+- ✅ Role-based access control (user, moderator, admin).
+- ✅ Book management with genres.
+- ✅ Book reviews and rating system.
+- ✅ Review voting (upvote/downvote).
+- ✅ Validation and error handling.
+- ✅ Secure password hashing and authentication.
+- ✅ RESTful API design.
+- ✅ Database versioning with Flyway (development only).
 ---
 
 ## 🧱 Tech Stack
