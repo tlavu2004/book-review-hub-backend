@@ -26,6 +26,9 @@ public class BookreviewhubBackendApplication {
 		setIfPresent("DB_NAME", dotenv);
 		setIfPresent("DB_USERNAME", dotenv);
 		setIfPresent("DB_PASSWORD", dotenv);
+		setIfPresent("DB_SSL_MODE", dotenv);
+		setIfPresent("DB_SERVER_TIMEZONE", dotenv);
+
 		setIfPresent("APP_JWT_SECRET", dotenv);
 		setIfPresent("APP_JWT_EXPIRATION", dotenv);
 		setIfPresent("ALLOWED_ORIGIN", dotenv);
