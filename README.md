@@ -30,7 +30,7 @@ It provides a RESTful API for managing users, books, genres, and reviews, with a
 ## 🚀 Basic Features
 
 - ✅ User registration & login.
-- ✅ Role-based access control (userEntity, moderator, admin).
+- ✅ Role-based access control (user, moderator, admin).
 - ✅ Book management with genres.
 - ✅ Book reviews and rating system.
 - ✅ Review voting (upvote/downvote).
@@ -264,7 +264,7 @@ _(Authentication endpoints are fully functional for MVP stage)_
 |-----|---------------------------------------------------|------------|------------|--------------------------------------------------|------|
 | 1   | Login                                             | 5/5        | Easy       | All                                              |      |
 | 2   | Register                                          | 5/5        | Easy       | Users                                            |      |
-| 3   | Add books (edit if userEntity is the owner)             | 4/5        | Medium     | All                                              |      |
+| 3   | Add books (edit if user is the owner)             | 4/5        | Medium     | All                                              |      |
 | 4   | View book details                                 | 5/5        | Easy       | All                                              |      |
 | 5   | Add book to favorites (bookmark)                  | 4/5        | Medium     | All                                              |      |
 | 6   | Write a review                                    | 5/5        | Medium     | All                                              |      |
@@ -278,8 +278,8 @@ _(Authentication endpoints are fully functional for MVP stage)_
 | 14  | View, edit and approve reviews                    | 4/5        | Medium     | Moderators, Admins                               |      |
 | 15  | Manage book list                                  | 4/5        | Medium     | Moderators, Admins                               |      |
 | 16  | Manage review list                                | 4/5        | Medium     | Moderators, Admins                               |      |
-| 17  | View userEntity list                                    | 3/5        | Easy       | Admins                                           |      |
-| 18  | View userEntity details                                 | 3/5        | Medium     | Admins                                           |      |
+| 17  | View user list                                    | 3/5        | Easy       | Admins                                           |      |
+| 18  | View user details                                 | 3/5        | Medium     | Admins                                           |      |
 | 19  | Manage books (remove or edit inappropriate books) | 4/5        | Medium     | Moderators, Admins                               |      |
 | 20  | View stats (books, members count, etc.)           | 3/5        | Hard       | Admins                                           |      |
 | 21  | Manage reviews (edit/delete any reviews)          | 5/5        | Medium     | Moderators, Admins                               |      |
@@ -293,7 +293,7 @@ _(Authentication endpoints are fully functional for MVP stage)_
 |-----|---------------------------------------|
 | 1   | Login                                 |
 | 2   | Register                              |
-| 3   | Add books (edit if userEntity is the owner) |
+| 3   | Add books (edit if user is the owner) |
 | 4   | View book details                     |
 | 6   | Write a review                        |
 | 9   | View others' reviews                  |
