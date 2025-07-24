@@ -32,5 +32,11 @@ build/
 ### VS Code ###
 .vscode/
 
-### Environment ###
+### Spring Boot sensitive configs ###
 .env
+*.env
+*.properties
+!*.example.properties
+src/main/resources/application.properties
+src/main/resources/application-*.properties
+!src/main/resources/application.properties.example
