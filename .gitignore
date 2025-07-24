@@ -34,9 +34,9 @@ build/
 
 ### Spring Boot sensitive configs ###
 .env
-*.env
-*.properties
-!*.example.properties
-src/main/resources/application.properties
-src/main/resources/application-*.properties
-!src/main/resources/application.properties.example
+.env.dev
+.env.staging
+.env.prod
+.env.local
+.env.*.local
+!.env.example
