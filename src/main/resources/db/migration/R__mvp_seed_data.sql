@@ -1,9 +1,29 @@
+-- This file is used to seed initial data into the database.
+-- Ensure the database is empty before running this script.
+
 -- USERS
-INSERT INTO users (username, hashed_password, email, role, first_name, middle_name, last_name, status)
+INSERT INTO users (username, hashed_password, email, role, first_name, middle_name, last_name, provider)
 VALUES
-('user01', '$2a$12$z0xmm/0lJH4MGGmaCjWobOoaOnQe/2H2GJMtjGCz9ctJa77UEE19W', 'user01@example.com', 'USER', 'Alice', NULL, 'User', 'ACTIVE'), -- Password: User@123
-('moderator01', '$2a$12$bmO1W0KqlW6Dujdhi3Xe1eNjwL/8TvgDV4Cg4XhF7v62wGiucxqLC', 'moderator01@example.com', 'MODERATOR', 'Bob', NULL, 'Mod', 'ACTIVE'), -- Password: Moderator@123
-('admin01', '$2a$12$mic4.JVbhElG4/7dO7bzSuYNePadzv4M8US3Y.6NFuF4nTzgMBEL2', 'admin01@example.com', 'ADMIN', 'Carol', NULL, 'Admin', 'ACTIVE'); -- Password: Admin@123
+('user01', '$2a$12$z0xmm/0lJH4MGGmaCjWobOoaOnQe/2H2GJMtjGCz9ctJa77UEE19W', 'user01@example.com', 'USER', 'Alice', NULL, 'User', 'LOCAL'), -- Password: User@123
+('moderator01', '$2a$12$bmO1W0KqlW6Dujdhi3Xe1eNjwL/8TvgDV4Cg4XhF7v62wGiucxqLC', 'moderator01@example.com', 'MODERATOR', 'Bob', NULL, 'Mod', 'LOCAL'), -- Password: Moderator@123
+('admin01', '$2a$12$mic4.JVbhElG4/7dO7bzSuYNePadzv4M8US3Y.6NFuF4nTzgMBEL2', 'admin01@example.com', 'ADMIN', 'Carol', NULL, 'Admin', 'LOCAL'); -- Password: Admin@123
+
+-- USER_AVATARS
+INSERT INTO user_avatars (user_id, version, url, source)
+VALUES
+(1, 1, 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alice', 'DICEBEAR'),
+(2, 1, 'https://api.dicebear.com/7.x/avataaars/svg?seed=Bob', 'DICEBEAR'),
+(3, 1, 'https://api.dicebear.com/7.x/avataaars/svg?seed=Carol', 'DICEBEAR');
+
+-- Update users to set avatar_id based on user_avatars
+UPDATE users
+SET avatar_id = (
+    SELECT ua.id
+    FROM user_avatars ua
+    WHERE ua.user_id = users.id
+    ORDER BY ua.id ASC
+    LIMIT 1
+);
 
 -- GENRES
 INSERT INTO genres (name, added_by_user_id)
