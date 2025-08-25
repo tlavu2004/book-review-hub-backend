@@ -3,7 +3,7 @@ package com.bookreviewhub.backend.infrastructure.config;
 import com.bookreviewhub.backend.infrastructure.security.handler.CustomAccessDeniedHandler;
 import com.bookreviewhub.backend.infrastructure.security.handler.CustomAuthenticationEntryPoint;
 import com.bookreviewhub.backend.infrastructure.security.filter.JwtAuthenticationFilter;
-import com.bookreviewhub.backend.infrastructure.CustomUserDetailsService;
+import com.bookreviewhub.backend.infrastructure.CustomAccountDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig implements WebMvcConfigurer {
-    private final CustomUserDetailsService customUserDetailsService;
+    private final CustomAccountDetailsService customAccountDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
@@ -63,7 +63,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 // Add JWT filter before UsernamePasswordAuthenticationFilter
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 // Register the custom user details service for authentication
-                .userDetailsService(customUserDetailsService);
+                .userDetailsService(customAccountDetailsService);
 
         return httpSecurity.build();
     }
